@@ -1,11 +1,26 @@
-import React from 'react';
+import React from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import logo from '../../../images/logo.png';
 
 const Header = () => {
-    return (
-        <header>
-            <h2>this is header</h2>
-        </header>
-    );
+  return (
+    <header>
+      <>
+        <Navbar bg="primary" variant="dark">
+          <Container>
+            <Navbar.Brand href="#home">
+                <img className="w-50 img-fluid" src={logo} alt="logo" />
+            </Navbar.Brand>
+            <Nav className="ms-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#features">Features</Nav.Link>
+              <Nav.Link href="#pricing">Pricing</Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
+      </>
+    </header>
+  );
 };
 
 export default Header;

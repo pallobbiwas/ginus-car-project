@@ -19,14 +19,13 @@ const Experts = () => {
   ];
   return (
     <div className="container-fluid mx-auto">
-      <h2 className=" text-center">Our experts</h2>
-      <hr />
+      <div className="my-5">
+        <h2 className=" text-center">Our experts</h2>
+        <hr />
+      </div>
       <div className="row">
         {experts.map((expart) => (
-          <Expert 
-          key={expart.id} 
-          expert={expart}
-          ></Expert>
+          <Expert key={expart.id} expert={expart}></Expert>
         ))}
       </div>
     </div>
