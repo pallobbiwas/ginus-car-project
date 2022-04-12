@@ -1,17 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
+import auth from "../../../firebase.init";
 import "./Ragister.css";
 
 const Ragister = () => {
-    const handelRagister = (e) => {
-        e.preventDefault();
-        const name = e.target.name.value;
-        const email = e.target.email.value;
-        const password = e.target.password.value;
+  const [createUserWithEmailAndPassword, user] =
+    useCreateUserWithEmailAndPassword(auth);
+  const navigate = useNavigate();
 
-
-
-    }
+  const handelRagister = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    createUserWithEmailAndPassword(email, password, name);
+  };
+  if(user){
+      navigate('/login')
+  }
   return (
     <div className="text-center container-fluid w-50 my-5 full-height">
       <div className="mb-5">
@@ -39,7 +46,9 @@ const Ragister = () => {
             <input type="submit" value="Ragister" />
           </div>
         </form>
-        <p className="text-end">Already have account? <Link to='/login'>login here</Link> </p>
+        <p className="text-end">
+          Already have account? <Link to="/login">login here</Link>
+        </p>
       </>
     </div>
   );

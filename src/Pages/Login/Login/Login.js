@@ -1,9 +1,16 @@
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import './Login.css';
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useLocation, useNavigate } from "react-router-dom";
+import auth from "../../../firebase.init";
+import "./Login.css";
 
 const Login = () => {
+  const [signInWithEmailAndPassword, user] =
+    useSignInWithEmailAndPassword(auth);
+    const navigate = useNavigate();
+    const location = useLocation()
+    const from = location.state.from.pathname || '/'
   // take value by using react hook useRef
   const emailRef = useRef("");
   const passwordRef = useRef("");
@@ -11,11 +18,15 @@ const Login = () => {
     e.preventDefault();
     const email = emailRef.current.value;
     const pass = passwordRef.current.value;
+    signInWithEmailAndPassword(email, pass)
   };
   //ragister toggol
-  const navigate = useNavigate()
+ 
   const ragisterbtn = () => {
-      navigate('/ragister')
+    navigate("/ragister");
+  };
+  if(user){
+    navigate(from);
   }
   return (
     <div className="container w-50 my-2 mx-auto">
@@ -49,7 +60,9 @@ const Login = () => {
             Submit
           </Button>
         </Form>
-        <p className="text-end">new to car? <span onClick={ragisterbtn}>ragister here</span> </p>
+        <p className="text-end">
+          new to car? <span onClick={ragisterbtn}>ragister here</span>{" "}
+        </p>
       </>
     </div>
   );
