@@ -11,7 +11,7 @@ const Services = () => {
       .then((data) => setServices(data));
   }, []);
   return (
-    <div className="container-fluid text-center">
+    <div id="service" className="container-fluid text-center">
       <div className="my-5">
         <h1 style={{ textAlign: "center", color: "blue" }}> Our services</h1>
         <hr />

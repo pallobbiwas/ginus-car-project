@@ -1,0 +1,16 @@
+.from-container input {
+  display: block;
+  width: 75%;
+  margin-bottom: 10px;
+}
+.from-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.full-height {
+  height: 60vh;
+}
+.ragisterbtn {
+  width: 100px;
+}

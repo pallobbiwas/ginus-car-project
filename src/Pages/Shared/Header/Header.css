@@ -1,0 +1,10 @@
+.nab-container {
+  position: sticky;
+}
+.iteam {
+  text-decoration: none;
+  color: aliceblue;
+  margin-right: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
