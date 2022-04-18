@@ -1,6 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import auth from "./firebase.init";
 import About from "./Pages/About/About";
 import Cheekout from "./Pages/Cheekout/Cheekout";
 import Home from "./Pages/Home/Home/Home";
@@ -12,7 +14,10 @@ import ServiceDetail from "./Pages/ServiceDetail/ServiceDetail";
 import Footer from "./Pages/Shared/Footer/Footer";
 import Header from "./Pages/Shared/Header/Header";
 
+
 function App() {
+  const [user] = useAuthState(auth);
+  console.log(user);
   return (
     <div>
       <Header />

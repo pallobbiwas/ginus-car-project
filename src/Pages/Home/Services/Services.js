@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import Servic from "../Servic/Servic";
 import "./Services.css";
 
@@ -12,6 +13,9 @@ const Services = () => {
   }, []);
   return (
     <div id="service" className="container-fluid text-center">
+      <Helmet>
+        <title>Service-genius car service</title>
+      </Helmet>
       <div className="my-5">
         <h1 style={{ textAlign: "center", color: "blue" }}> Our services</h1>
         <hr />

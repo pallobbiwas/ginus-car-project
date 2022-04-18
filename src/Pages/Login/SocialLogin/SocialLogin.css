@@ -1,0 +1,26 @@
+.line-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.line-container p {
+  margin: 5px 20px;
+}
+.left-container,
+.right-container {
+  width: 450px;
+  height: 1px;
+  background: black;
+}
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+.width {
+  width: 300px;
+}
+.img-width {
+  width: 30px;
+  text-align: left;
+  margin-right: 10px;
+}

@@ -1,16 +1,27 @@
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useSendPasswordResetEmail,
+  useSignInWithEmailAndPassword
+} from "react-firebase-hooks/auth";
+import { Helmet } from "react-helmet-async";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import auth from "../../../firebase.init";
+import SocialLogin from "../SocialLogin/SocialLogin";
 import "./Login.css";
 
 const Login = () => {
-  const [signInWithEmailAndPassword, user] =
+  const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
-    const navigate = useNavigate();
-    const location = useLocation()
-    const from = location.state.from.pathname || '/'
+  const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+  const navigate = useNavigate();
+  const location = useLocation();
+  let erreorElement;
+
+  const from = location?.state?.from?.pathname || "/";
+
   // take value by using react hook useRef
   const emailRef = useRef("");
   const passwordRef = useRef("");
@@ -18,24 +29,39 @@ const Login = () => {
     e.preventDefault();
     const email = emailRef.current.value;
     const pass = passwordRef.current.value;
-    signInWithEmailAndPassword(email, pass)
+    signInWithEmailAndPassword(email, pass);
   };
   //ragister toggol
- 
+
   const ragisterbtn = () => {
     navigate("/ragister");
   };
-  if(user){
-    navigate(from);
+  //forget password
+  const forgetPassword = async () => {
+    const email = emailRef.current.value;
+    await sendPasswordResetEmail(email);
+    toast("send password");
+  };
+  if (user) {
+    navigate(from, { replace: true });
+  }
+  if (error) {
+    erreorElement = (
+      <div>
+        <p className="text-danger">Error: {error?.message}</p>
+      </div>
+    );
   }
   return (
     <div className="container w-50 my-2 mx-auto">
+      <Helmet>
+        <title>login-genius car service</title>
+      </Helmet>
       <h1 className="text-center">Log in</h1>
       <hr />
       <>
         <Form onSubmit={formSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
             <Form.Control
               ref={emailRef}
               type="email"
@@ -45,7 +71,6 @@ const Login = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
             <Form.Control
               ref={passwordRef}
               type="password"
@@ -53,17 +78,23 @@ const Login = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
+          <Button variant="primary w-50 mx-auto d-block my-3" type="submit">
+            Login
           </Button>
         </Form>
-        <p className="text-end">
-          new to car? <span onClick={ragisterbtn}>ragister here</span>{" "}
-        </p>
+        {erreorElement}
+        <div className="d-flex justify-content-center">
+          <p className="text-end me-4">
+            new to car? <span onClick={ragisterbtn}>ragister here</span>{" "}
+          </p>
+          <p className="text-end">
+            forgot password?{" "}
+            <span onClick={forgetPassword}>rset your password</span>{" "}
+          </p>
+        </div>
       </>
+      <SocialLogin></SocialLogin>
+      <ToastContainer />
     </div>
   );
 };

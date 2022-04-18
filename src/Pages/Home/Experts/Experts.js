@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import expert1 from "../../../images/experts/expert-1.jpg";
 import expert2 from "../../../images/experts/expert-2.jpg";
 import expert3 from "../../../images/experts/expert-3.jpg";
@@ -19,6 +20,9 @@ const Experts = () => {
   ];
   return (
     <div id="expart" className="container-fluid mx-auto">
+      <Helmet>
+        <title>exparts-genius car service</title>
+      </Helmet>
       <div className="my-5">
         <h2 className=" text-center">Our experts</h2>
         <hr />
